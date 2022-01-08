@@ -1,21 +1,13 @@
-FROM ubuntu:latest
+FROM node:14
 
-MAINTAINER kaushik <kaushikpraveen777@gmail.com>
+WORKDIR /usr/src/app
 
-WORKDIR /usr/apps/hello-docker/
+COPY package*.json ./
 
-RUN apt-get -y update
+RUN npm install
 
-RUN apt-get install -y nodejs
+COPY . .
 
-RUN apt-get install -y npm
+EXPOSE 3000
 
-#RUN ln -s /usr/bin/nodejs /usr/bin/node........;;;;;
-
-RUN npm install -g http-server
-
-ADD . /usr/apps/hello-docker/
-
-ADD index.html /usr/apps/hello-docker/index.html
-
-CMD ["http-server", "-s"]
+CMD ["node", "index.js"]
